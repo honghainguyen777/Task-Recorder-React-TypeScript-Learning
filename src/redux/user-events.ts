@@ -2,7 +2,7 @@ import { Action, AnyAction } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from './store';
 
-interface UserEvent {
+export interface UserEvent {
   id: number;
   title: string;
   dateStart: string;
@@ -13,11 +13,6 @@ interface UserEventsState {
   byIds: Record<UserEvent['id'], UserEvent>;
   allIds: UserEvent['id'][]; // normalizing data in redux term
 }
-
-const initialState: UserEventsState = {
-  byIds: {},
-  allIds: [],
-};
 
 const LOAD_REQUEST = 'userEvents/load_request';
 
@@ -61,6 +56,18 @@ export const loadUserEvents = (): ThunkAction<
       error: 'Failed to load events!',
     });
   }
+};
+
+const selectUserEventsState = (rootState: RootState) => rootState.userEvents;
+
+export const selectUserEventsArray = (rootState: RootState) => {
+  const state = selectUserEventsState(rootState);
+  return state.allIds.map((id) => state.byIds[id]);
+};
+
+const initialState: UserEventsState = {
+  byIds: {},
+  allIds: [],
 };
 
 const userEventsReducer = (
