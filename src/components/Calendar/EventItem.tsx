@@ -30,6 +30,10 @@ const EventItem: React.FC<Props> = ({ event }) => {
     setTitle(e.target.value);
   };
 
+  const handleBlur = () => {
+    setEditable(false);
+  };
+
   return (
     <div key={event.id} className="calendar-event">
       <div className="calendar-event-info">
@@ -41,6 +45,7 @@ const EventItem: React.FC<Props> = ({ event }) => {
               ref={inputRef}
               value={title}
               onChange={handleChange}
+              onBlur={handleBlur}
             />
           ) : (
             <span onClick={handleTitleClick}>{event.title}</span>
