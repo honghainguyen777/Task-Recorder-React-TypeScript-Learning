@@ -174,7 +174,7 @@ const UPDATE_FAILURE = 'userEvents/update_failure';
 
 interface UpdateFailureAction extends Action<typeof UPDATE_FAILURE> {}
 
-const updateUserEvent = (
+export const updateUserEvent = (
   event: UserEvent
 ): ThunkAction<
   Promise<void>,

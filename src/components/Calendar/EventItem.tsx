@@ -1,6 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteUserEvent, UserEvent } from '../../redux/user-events';
+import {
+  deleteUserEvent,
+  updateUserEvent,
+  UserEvent,
+} from '../../redux/user-events';
 
 interface Props {
   event: UserEvent;
@@ -31,6 +35,14 @@ const EventItem: React.FC<Props> = ({ event }) => {
   };
 
   const handleBlur = () => {
+    if (title !== event.title) {
+      dispatch(
+        updateUserEvent({
+          ...event,
+          title,
+        })
+      );
+    }
     setEditable(false);
   };
 
